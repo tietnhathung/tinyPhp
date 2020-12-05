@@ -1,0 +1,12 @@
+{
+  "name": "Php framework",
+  "debug": true,
+  "composer": true,
+  "database": {
+    "database" : "mysql",
+    "host": "localhost",
+    "dbname": "framework",
+    "username": "root",
+    "password": ""
+  }
+}
