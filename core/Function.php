@@ -1,5 +1,6 @@
 <?php
 
+
 function config($index = null , $defaultValue = null){
     $filename = 'config.json';
     if (!file_exists (  $filename )){
