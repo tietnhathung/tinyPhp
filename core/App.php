@@ -1,4 +1,5 @@
 <?php
+
 class App{
 
     public function __construct(){
@@ -10,6 +11,7 @@ class App{
     public function run(){
 
         $url = trim($_SERVER['REQUEST_URI'],"/");
+
 
         $route  =  Route::getRoutes($url);
 
@@ -29,8 +31,14 @@ class App{
         if ( ! method_exists($controller , $methodName ) ){
             show404Error();
         }
-        
-        $controller->{$methodName}();
+
+        $request = new Request();
+        $response = new Response();
+        $parameters = array_values($route["parameters"]);
+
+        $content = $controller->{$methodName}($request , $response , $parameters);
+
+        echo $content;
     }
 
     private function getParramsFromRoute($route){
