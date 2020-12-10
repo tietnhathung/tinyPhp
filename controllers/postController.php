@@ -2,12 +2,15 @@
 class postController extends Controller
 {
     public function index($req , $res , $par ){
-        $title = "Auther";
-        $name = "Hưng";
-        $fullname ="Tiết Nhật Hưng";
-        $old = 23;
+        $data = [
+            "ho" => "Tiết",
+            "dem" => "Nhật",
+            "ten" => "Hưng"
+        ];
 
-        $res->view("postDetail", compact('title','name','fullname','old'), "layouts/defaultLayout");
+        $res->render("templates/template",$data);
+
+
     }
 
     public function show( $req , $res , $par ){

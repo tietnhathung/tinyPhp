@@ -1,0 +1,13 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <foreach data="$data as $key => $value">
+            <h1><?php echo $value ?></h1>
+        </foreach>
+        <if data="!empty($data)">
+
+        </if>
+    </body>
+</html>
