@@ -10,10 +10,12 @@ class App{
 
     public function run(){
 
-        $url = trim($_SERVER['REQUEST_URI'],"/");
+        $uri = trim($_SERVER['REQUEST_URI'],"/");
+
+        $methodName = $_SERVER['REQUEST_METHOD'];
 
 
-        $route  =  Route::getRoutes($url);
+        $route  =  Route::getRoutes($uri,$methodName);
 
         if ($route == false) {
             show404Error();
@@ -36,9 +38,8 @@ class App{
         $response = new Response();
         $parameters = array_values($route["parameters"]);
 
-        $content = $controller->{$methodName}($request , $response , $parameters);
+        $controller->{$methodName}($request , $response , $parameters);
 
-        echo $content;
     }
 
     private function getParramsFromRoute($route){

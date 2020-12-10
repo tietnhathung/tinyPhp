@@ -7,7 +7,7 @@ class postController extends Controller
         $fullname ="Tiết Nhật Hưng";
         $old = 23;
 
-        return $res->View("postDetail", compact('title','name','fullname','old'), "layouts/defaultLayout");
+        $res->view("postDetail", compact('title','name','fullname','old'), "layouts/defaultLayout");
     }
 
     public function show( $req , $res , $par ){
@@ -17,10 +17,22 @@ class postController extends Controller
         $fullname ="Tiết Nhật Hưng $par[0]";
         $old = 23;
 
-        return $res->View("postDetail", compact('title','name','fullname','old'), "layouts/defaultLayout");
+        $res->view("postDetail", compact('title','name','fullname','old'), "layouts/defaultLayout");
     }
 
     public function showDetail( $req , $res , $par ){
         var_dump($par);
     }
+
+    public function api( $req , $res , $par ){
+        $data = [
+            "method" => $_SERVER['REQUEST_METHOD'],
+            "ho" => "Tiết",
+            "dem" => "Nhật",
+            "ten" => "Hưng"
+        ];
+
+        $res->json($data);
+    }
+
 }

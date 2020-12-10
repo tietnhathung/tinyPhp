@@ -52,5 +52,6 @@ function showError( $errno, $errstr, $errfile, $errline){
 }
 
 function show404Error(){
+    header("HTTP/1.1 404 Not Found");
     die("Code:404 Page not found! :`(");
 }
