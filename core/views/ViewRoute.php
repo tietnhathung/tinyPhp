@@ -16,9 +16,7 @@ class ViewRoute{
     }
     public function setViewFile(string $key , array $value)
     {
-        if (isset($this->routes[$key]) && !empty($this->routes[$key])) {
-            unlink ( $this->routes[$key]["path"] );
-        }
+        
         $this->routes[$key] = $value;
         file_put_contents( $this->fileName , json_encode( $this->routes ) );
     }

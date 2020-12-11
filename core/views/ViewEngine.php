@@ -37,33 +37,35 @@ class ViewEngine{
 
     private function renderFile($fileName){
         
-        $pathFile = "views/$fileName.tiny";
+        $originPathFile = "views/$fileName.tiny";
         
-        if ( ! file_exists($pathFile) ){
+        if ( ! file_exists($originPathFile) ){
             return false;
         }
 
-        $fileContent = file_get_contents($pathFile, true);
+        $fileContent = file_get_contents($originPathFile, true);
 
         preg_all_engine($fileContent);
 
-        $file = random_unique();
-
-        $newPathFile = "core/cache/views/templates/$file.php";
-
-        $isFilePutSusset = file_put_contents ( $newPathFile , $fileContent ) ;
-
+        $routeFile = $this->routes->getViewFile($fileName);
+        
+        if ($routeFile == false ) {
+            $file = random_unique();
+            $pathFile = "core/cache/views/templates/$file.php";
+        }else{
+            $pathFile = $routeFile["path"];
+        }
+        
+        $isFilePutSusset = file_put_contents ( $pathFile , $fileContent ) ;
         if( !$isFilePutSusset ){
             return false;
-        }        
-
-        $infoFile = [
-            "path" => $newPathFile,
-            "timechange" => filemtime ( $pathFile ),
+        }
+        $fileInfo = [
+            "path" => $pathFile,
+            "timechange" => filemtime ( $originPathFile ),
         ];
+        $this->routes->setViewFile($fileName , $fileInfo);
 
-        $this->routes->setViewFile($fileName , $infoFile);
-
-        return $newPathFile;
+        return $pathFile;
     }
 }
