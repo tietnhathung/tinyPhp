@@ -7,18 +7,36 @@ class ViewEngine{
     }
 
     public function getView(string $fileName){
+       
         $fileName = trim($fileName , "/");
 
         $routeFile = $this->routes->getViewFile($fileName);
        
-        if ($routeFile != false) {
-            return $routeFile["path"];
-        }else{
+        if ( $this->fileNeedReder($fileName , $routeFile) ) {
             return $this->renderFile($fileName);
+        }else{
+            return $routeFile["path"];
+        }
+    }
+
+    private function fileNeedReder($fileName , $routeFile){
+        $mode = config("debug");
+       
+        if ($routeFile != false ) {
+            $pathFile = "views/$fileName.tiny"; 
+            $timeChange = filemtime ( $pathFile );
+            if ( $mode && $routeFile["timechange"] !=  $timeChange) {
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return true;
         }
     }
 
     private function renderFile($fileName){
+        
         $pathFile = "views/$fileName.tiny";
         
         if ( ! file_exists($pathFile) ){
@@ -40,7 +58,8 @@ class ViewEngine{
         }        
 
         $infoFile = [
-            "path" => $newPathFile
+            "path" => $newPathFile,
+            "timechange" => filemtime ( $pathFile ),
         ];
 
         $this->routes->setViewFile($fileName , $infoFile);
