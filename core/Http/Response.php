@@ -44,10 +44,13 @@ class Response{
 
         $fileContent = file_get_contents($pathFile, true);
 
+       
         preg_foreach($fileContent);
         preg_echo($fileContent);
         preg_ifelse($fileContent);
-
+        preg_switch($fileContent);
+        pregSpaces($fileContent);
+        
         file_put_contents ( "core/cacheView/people.php" , $fileContent ) ;
 
         require_once ("core/cacheView/people.php");

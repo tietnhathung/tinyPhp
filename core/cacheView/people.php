@@ -1,15 +1,1 @@
-<html>
-    <head>
-
-    </head>
-    <body>
-        <?php if(is_array($data)): ?>
-            <?php foreach($data as $key => $value): ?>
-                <h1><?php echo htmlspecialchars($value); ?></h1>
-            <?php endforeach; ?>
-            <?php else: ?>
-                <h1>Đây không phải mảng</h1>
-            
-        <?php endif; ?>
-    </body>
-</html>
+<html><head></head><body><?php if(is_array($data)): ?><?php foreach($data as $key => $value): ?><h1><?php echo htmlspecialchars($value); ?></h1><?php endforeach; ?><?php else: ?><h1>Đây không phải mảng</h1><?php endif; ?><?php switch (3): ?><?php case 5: ?><?php echo htmlspecialchars("5"); ?><?php break; ?><?php case 2: ?><?php echo htmlspecialchars("2"); ?><?php break; ?><?php default: ?><?php echo htmlspecialchars("default"); ?><?php endswitch; ?></body></html>
