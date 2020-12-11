@@ -4,10 +4,10 @@
     </head>
     <body>
         <foreach data="$data as $key => $value">
-            <h1><?php echo $value ?></h1>
+            <h1>{{$value}}</h1>
         </foreach>
         <foreach data="$data as $key => $value">
-            <h2><?php echo $key ?></h2>
+            <h2>{!$key!}</h2>
         </foreach>
     </body>
 </html>

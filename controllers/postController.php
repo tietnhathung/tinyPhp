@@ -3,7 +3,7 @@ class postController extends Controller
 {
     public function index($req , $res , $par ){
         $data = [
-            "ho" => "Tiết",
+            "ho<strong>a</strong>" => "Tiết<h1>a</h1>",
             "dem" => "Nhật",
             "ten" => "Hưng"
         ];
