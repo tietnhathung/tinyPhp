@@ -44,17 +44,9 @@ class Response{
 
         $fileContent = file_get_contents($pathFile, true);
 
-        preg_match('/<[\s]*foreach[\s]*data[\s]*=[\s]*"([$\w =>]+)"[\s]*>/', $fileContent, $value);
+        preg_foreach($fileContent);
 
-        $inforeach = $value[1] ??"";
-
-        $htmlraw =  preg_replace('/<[\s]*foreach[\s]*data[\s]*=[\s]*"([$\w =>]+)"[\s]*>/', "<?php foreach($inforeach): ?>", $fileContent );
-
-        $html =  preg_replace('/<\/[\s]*foreach[\s]*>/' , "<?php endforeach; ?>", $htmlraw );
-
-        file_put_contents ( "core/cacheView/people.php" , $html ) ;
-
-        $fileContent2 = file_get_contents("core/cacheView/people.php", true);
+        file_put_contents ( "core/cacheView/people.php" , $fileContent ) ;
 
         require_once ("core/cacheView/people.php");
 

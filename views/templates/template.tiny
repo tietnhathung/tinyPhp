@@ -6,8 +6,8 @@
         <foreach data="$data as $key => $value">
             <h1><?php echo $value ?></h1>
         </foreach>
-        <if data="!empty($data)">
-
-        </if>
+        <foreach data="$data as $key => $value">
+            <h2><?php echo $key ?></h2>
+        </foreach>
     </body>
 </html>
