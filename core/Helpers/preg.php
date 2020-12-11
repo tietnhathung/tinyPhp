@@ -37,7 +37,14 @@ function preg_ifelse(&$htmlRaw){
         $parameters = $allElseif[1][$key] ?? "";
         $htmlRaw =  str_replace ($search, "<?php elseif($parameters): ?>", $htmlRaw );
     }
-    
+
+    preg_match_all('/<elseif\s+parameters\s*=\s*["|\']+([$\w \(\)=!><&|]+)["|\']+\s*\/>/', $htmlRaw, $allElseifSingle);
+    foreach ($allElseifSingle[0]??[] as $key => $search) {
+        $parameters = $allElseifSingle[1][$key] ?? "";
+        $htmlRaw =  str_replace ($search, "<?php elseif($parameters): ?>", $htmlRaw );
+    }
+
+    $htmlRaw =  preg_replace('/<else\s*\/>/', '<?php else: ?>', $htmlRaw);
     $htmlRaw =  preg_replace('/<else\s*>/', '<?php else: ?>', $htmlRaw);
     $htmlRaw =  preg_replace('/<\/if\s*>/', '<?php endif; ?>', $htmlRaw);
     $htmlRaw =  preg_replace('/<\/elseif\s*>/', '', $htmlRaw);
@@ -55,8 +62,15 @@ function preg_switch(&$htmlRaw){
         $htmlRaw =  str_replace ($search, "<?php case $parameters: ?>", $htmlRaw );
     }
 
+    preg_match_all('/<case\s+parameters\s*=\s*["|\']([$\w ]*)["|\']\s*\/>/', $htmlRaw, $allCaseSingle);
+    foreach ($allCaseSingle[0]??[] as $key => $search) {
+        $parameters = $allCaseSingle[1][$key] ?? "";
+        $htmlRaw =  str_replace ($search, "<?php case $parameters: ?>", $htmlRaw );
+    }
+
     $htmlRaw =  preg_replace('/<break\s*\/>/', '<?php break; ?>', $htmlRaw);
     $htmlRaw =  preg_replace('/<\/case\s*>/', '', $htmlRaw);
+    $htmlRaw =  preg_replace('/<default\s*\/>/', '<?php default: ?>', $htmlRaw);
     $htmlRaw =  preg_replace('/<default\s*>/', '<?php default: ?>', $htmlRaw);
     $htmlRaw =  preg_replace('/<\/default\s*>/', '', $htmlRaw);
     $htmlRaw =  preg_replace('/<\/switch\s*>/', '<?php endswitch; ?>', $htmlRaw);

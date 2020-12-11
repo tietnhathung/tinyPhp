@@ -1,33 +1,22 @@
-<php> echo "ahihi";  $i = 1; </php>
-<while parameters="$i<=5">
-    <h4>Tieest</h4>
-    <php>
-        echo "ahihi";
-        $i++;
-    </php>
-</while>
-<for parameters="$i = 1; $i <= 10; $i++">
-    <h3>Hưng</h3>
-</for>
-<if parameters="is_array($data)">
-    <foreach parameters="$data as $key => $value">
-        <h1>{{$value}}</h1>
-    </foreach>
-    <else>
-        <h1>Đây không phải mảng</h1>
-    </else>
+<if parameters="5==4">
+    <h1>5==4</h1>
+    <elseif parameters="4==4" />
+        <h1>4==4</h1>
+    <else />
+        <h1>5!=4</h1>
 </if>
 <switch parameters="3">
-    <case parameters="5">
-        {{"5"}}
+    <case parameters="3"/>
+        {{"3"}}
         <break/>
-    </case>
-    <case parameters="2">
+
+    <case parameters="2"/>
         {{"2"}}
         <break/>
-    </case>
-    <default>
+
+    <default/>
         {{"s default s"}}
-    </default>
 </switch>
-<h1>ahihi</h1>
+
+
+
