@@ -10,20 +10,24 @@ class ViewEngine{
        
         $fileName = trim($fileName , "/");
 
-        $routeFile = $this->routes->getViewFile($fileName);
+        $originPathFile = "views/$fileName.tiny.xml";
+
+        if ( ! file_exists($originPathFile) ){
+            return false;
+        }
+
+        $routeFile = $this->routes->getViewFile($originPathFile);
        
-        if ( $this->fileNeedReder($fileName , $routeFile) ) {
-            return $this->renderFile($fileName);
+        if ( $this->fileNeedReder($originPathFile , $routeFile) ) {
+            return $this->renderFile($originPathFile);
         }else{
             return $routeFile["path"];
         }
     }
 
-    private function fileNeedReder($fileName , $routeFile){
+    private function fileNeedReder($pathFile , $routeFile){
         $mode = config("debug");
-       
         if ($routeFile != false ) {
-            $pathFile = "views/$fileName.tiny"; 
             $timeChange = filemtime ( $pathFile );
             if ( $mode && $routeFile["timechange"] !=  $timeChange) {
                 return true;
@@ -35,19 +39,13 @@ class ViewEngine{
         }
     }
 
-    private function renderFile($fileName){
-        
-        $originPathFile = "views/$fileName.tiny";
-        
-        if ( ! file_exists($originPathFile) ){
-            return false;
-        }
+    private function renderFile($originPathFile){
 
         $fileContent = file_get_contents($originPathFile, true);
 
         preg_all_engine($fileContent);
 
-        $routeFile = $this->routes->getViewFile($fileName);
+        $routeFile = $this->routes->getViewFile($originPathFile);
         
         if ($routeFile == false ) {
             $file = random_unique();
@@ -64,7 +62,7 @@ class ViewEngine{
             "path" => $pathFile,
             "timechange" => filemtime ( $originPathFile ),
         ];
-        $this->routes->setViewFile($fileName , $fileInfo);
+        $this->routes->setViewFile($originPathFile , $fileInfo);
 
         return $pathFile;
     }
