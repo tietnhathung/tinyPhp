@@ -3,6 +3,16 @@
 
     </head>
     <body>
+        <php>  $i = 1; </php>
+        <while parameters="$i<=5">
+            <h4>Tieest</h4>
+            <php>
+                $i++;
+            </php>
+        </while>
+        <for parameters="$i = 1; $i <= 10; $i++">
+            <h3>Hưng</h3>
+        </for>
         <if parameters="is_array($data)">
             <foreach parameters="$data as $key => $value">
                 <h1>{{$value}}</h1>

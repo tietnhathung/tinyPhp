@@ -49,8 +49,10 @@ class Response{
         preg_echo($fileContent);
         preg_ifelse($fileContent);
         preg_switch($fileContent);
+        pregPhp($fileContent);
+        preg_for($fileContent);
+        preg_while($fileContent);
         pregSpaces($fileContent);
-        
         file_put_contents ( "core/cacheView/people.php" , $fileContent ) ;
 
         require_once ("core/cacheView/people.php");

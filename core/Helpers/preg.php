@@ -3,6 +3,10 @@
 function pregSpaces(&$htmlRaw){
     $htmlRaw = preg_replace('/\>\s+\</m', '><', $htmlRaw);
 }
+function pregPhp(&$htmlRaw){
+    $htmlRaw = preg_replace('/<php\s*>/m', '<?php', $htmlRaw);
+    $htmlRaw = preg_replace('/<\/php\s*>/m', '?>', $htmlRaw);
+}
 function preg_foreach(&$htmlRaw){
     preg_match_all('/<\s*foreach\s*parameters\s*=\s*"([$\w =>]+)"\s*>/', $htmlRaw, $allForeach);
     foreach ($allForeach[0]??[] as $key => $search) {
@@ -60,4 +64,22 @@ function preg_switch(&$htmlRaw){
     $htmlRaw =  preg_replace('/<default\s*>/', '<?php default: ?>', $htmlRaw);
     $htmlRaw =  preg_replace('/<\/default\s*>/', '', $htmlRaw);
     $htmlRaw =  preg_replace('/<\/switch\s*>/', '<?php endswitch; ?>', $htmlRaw);
+}
+
+function preg_for(&$htmlRaw){
+    preg_match_all('/<\s*for\s*parameters\s*=\s*"([$\w ;+-<>=!]+)"\s*>/', $htmlRaw, $allFor);
+    foreach ($allFor[0]??[] as $key => $search) {
+        $parameters = $allFor[1][$key] ?? "";
+        $htmlRaw =  str_replace ($search, "<?php for($parameters): ?>", $htmlRaw );
+    }
+    $htmlRaw =  preg_replace('/<\/\s*for\s*>/' , "<?php endfor; ?>", $htmlRaw );
+}
+
+function preg_while(&$htmlRaw){
+    preg_match_all('/<\s*while\s*parameters\s*=\s*"([$\w ;+-<>=!]+)"\s*>/', $htmlRaw, $allWhile);
+    foreach ($allWhile[0]??[] as $key => $search) {
+        $parameters = $allWhile[1][$key] ?? "";
+        $htmlRaw =  str_replace ($search, "<?php while($parameters): ?>", $htmlRaw );
+    }
+    $htmlRaw =  preg_replace('/<\/\s*while\s*>/' , "<?php endwhile; ?>", $htmlRaw );
 }
