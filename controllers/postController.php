@@ -2,15 +2,14 @@
 class postController extends Controller
 {
     public function index($req , $res , $par ){
+
         $data = [
             "ho<strong>a</strong>" => "Tiết<h1>a</h1>",
             "dem" => "Nhật",
             "ten" => "Hưng"
         ];
 
-        $res->render("templates/template",$data);
-
-
+        $res->view("templates/template",$data , "layouts/defaultLayout");
     }
 
     public function show( $req , $res , $par ){

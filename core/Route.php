@@ -83,7 +83,6 @@ class Route{
     }
 
     public static function patch( $uri , $controller , $name = null ){
-
         $urlKey  = trim($uri,"/");
         $urlRegexKey = str_replace("/","\/", $urlKey);
         $urlRegexKey = str_replace(":w","([\w]+)", $urlRegexKey);
