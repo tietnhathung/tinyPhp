@@ -3,11 +3,24 @@
 
     </head>
     <body>
-        <foreach data="$data as $key => $value">
-            <h1>{{$value}}</h1>
-        </foreach>
-        <foreach data="$data as $key => $value">
-            <h2>{!$key!}</h2>
-        </foreach>
+        <if parameters="is_array($data)">
+            <foreach parameters="$data as $key => $value">
+                <h1>{{$value}}</h1>
+            </foreach>
+            <else>
+                <h1>Đây không phải mảng</h1>
+            </else>
+        </if>
+        <switch parameters="">
+
+            <case parameters="">
+                
+                <break/>
+            </case>
+            <default>
+
+            </default>
+
+        </switch>
     </body>
 </html>

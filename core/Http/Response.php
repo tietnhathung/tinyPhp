@@ -46,6 +46,7 @@ class Response{
 
         preg_foreach($fileContent);
         preg_echo($fileContent);
+        preg_ifelse($fileContent);
 
         file_put_contents ( "core/cacheView/people.php" , $fileContent ) ;
 
